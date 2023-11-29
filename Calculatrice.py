@@ -1,147 +1,258 @@
-#...................
-#IMPORTATION TKINTER
-#...................
+# Importer Tkinter ----------------------------
+from tkinter import * # Tkinter
 
-from tkinter import *
+# Classes ---------------------------------------
 
-calcul = ""
+class calculator():
 
-#Pour afficher les calculs
-def ajout_calcul(symbol):
-    global calcul
-    calcul +=str(symbol)
-    text_resultat.delete(1.0,"end")
-    text_resultat.insert(1.0,calcul)
-    
-
-#..........
-# FONCTIONS
-#..........
-
-# Pour que calculer
-def eval_calcul():
-    global calcul
-    #Pour que le programme affiche une erreur s'il y a des opérations qui contiennent des erreurs
-    try:
-        calcul=str(eval(calcul))
-        text_resultat.delete(1.0,END)
-        text_resultat.insert(1.0,calcul)
-        calcul=""
-    except:
-        effacer_ecran()        
-        text_resultat.insert(0,"Erreur")
+    # Construction
+    def __init__(saisie):
+        saisie.etape1 = 0 
+        saisie.etape2 = 0
+        saisie.final = 0 
+        saisie.entry = StringVar()
+        saisie.text = "" 
+        saisie.signe = "" 
+        saisie.entry.set("")
         
-        
-# Pour effacer ce qu'il y a sur l'écran
-def effacer_ecran(): 
-    global calcul
-    calcul = ""
-    text_resultat.delete("1.0",END)
+    # Initialiser
+    def init(saisie):
+        saisie.etape1 = 0
+        saisie.etape2 = 0
+        saisie.final = 0 
+        saisie.text = ""
+        saisie.signe = ""
     
+    # Afficher les nombres sur l'écran
+    def afficher_nombre(saisie): 
+        saisie.entry.set(saisie.text)
+       
+# Vérification du type d'opération
 
-#........
-# FENETRE 
-#........
+    def operation(saisie): 
+        try : 
+            if "+" in saisie.text:
+                saisie.addition()
+            elif "-" in saisie.text:
+                saisie.soustraction()
+            elif "/" in saisie.text:
+                saisie.division()
+            elif "x" in saisie.text:
+                saisie.multiplication()
+            elif "x" in saisie.text:
+                saisie.pourcentage()
+        except:
+            saisie.entry.set("Erreur")
+            saisie.init()
 
-# Création de la première fenêtre
-root=Tk() 
-# Titre de l'application
-root.title ("Calculatrice") 
+# Addition
+    def addition(saisie):
+        nombre = saisie.text.split("+")
+        saisie.etape1 = float(nombre[0])
+        saisie.etape2 = float(nombre[1])
+        saisie.final = saisie.etape1 + saisie.etape2
+        saisie.entry.set(str(saisie.final))
+        saisie.init()
 
-# Style de la fenêtre
-root.geometry("410x350") 
-text_resultat=Text(root, height=2, width=20, font=("Arial", 24))
-text_resultat.grid(columnspan=6, padx=20, pady=10)
+# Soustraction
+    def soustraction(saisie): 
+        nombre = saisie.text.split("-")
+        saisie.etape1 = float(nombre[0])
+        saisie.etape2 = float(nombre[1])
+        saisie.final = saisie.etape1 - saisie.etape2
+        saisie.entry.set(str(saisie.final))
+        saisie.init()
 
-#........
-# BOUTONS
-#........
+# Multiplication
+    def multiplication(saisie):
+        nombre = saisie.text.split("x")
+        saisie.etape1 = float(nombre[0])
+        saisie.etape2 = float(nombre[1])
+        saisie.final = saisie.etape1 * saisie.etape2
+        saisie.entry.set(str(saisie.final))
+        saisie.init()
 
+# Division
+    def division(saisie): 
+        nombre = saisie.text.split("/")
+        saisie.etape1 = float(nombre[0])
+        saisie.etape2 = float(nombre[1])
+        saisie.final = saisie.etape1 / saisie.etape2
+        saisie.entry.set(str(saisie.final))
+        saisie.init()
+    
+# Pourcentage
+    def pourcentage(saisie):
+        nombre = saisie.text.split("%")
+        saisie.etape1 = float(nombre[0])
+        saisie.final = saisie.etape1 / 100
+        saisie.entry.set(str(saisie.final))
+        saisie.init()
 
-# def __init__(self, valeur, font, width): 
-#     self.bouton = Button(root,text=valeur, command=lambda: self.bouton_click(valeur), width=5, font=("Arial",18))
-#     self.bouton.grid (font = font, width=width, padx=6, pady=6)
+# Fonctions ----------------------------
 
-# def bouton_click(self, valeur):
-#     current = text_resultat.get()
-#     text_resultat.delete(0, "end")
-#     text_resultat.insert("end", current + valeur)
+# Actionnerle les boutons de 1 à 9
 
+def Btn1 (): 
+    calculatrice.text += "1"
+    calculatrice.entry.set(calculatrice.text)
+    
+def Btn2 ():
+    calculatrice.text += "2"
+    calculatrice.entry.set(calculatrice.text)
+    
+def Btn3 ():
+    calculatrice.text += "3"
+    calculatrice.entry.set(calculatrice.text)
+    
+def Btn4 ():
+    calculatrice.text += "4"
+    calculatrice.entry.set(calculatrice.text)
+    
+def Btn5 ():
+    calculatrice.text += "5"
+    calculatrice.entry.set(calculatrice.text)
 
+def Btn6 ():
+    calculatrice.text += "6"
+    calculatrice.entry.set(calculatrice.text)
 
+def Btn7 ():
+    calculatrice.text += "7"
+    calculatrice.entry.set(calculatrice.text)
 
-#...Boutons des chiffres
+def Btn8 ():
+    calculatrice.text += "8"
+    calculatrice.entry.set(calculatrice.text)
+    
+def Btn9 ():
+    calculatrice.text += "9"
+    calculatrice.entry.set(calculatrice.text)
+    
+def Btn0 ():
+    calculatrice.text += "0"
+    calculatrice.entry.set(calculatrice.text)
 
-btn_1=Button(root,text="1", command=lambda:ajout_calcul(1), width=5,font=("Arial",18),)
-btn_1.grid(row=2, column=1)
+# Actionner les boutons d'opérations
 
-btn_2=Button(root,text="2", command=lambda: ajout_calcul(2), width=5,font=("Arial",18))
+def Btn_addition ():
+    calculatrice.text += "+"
+    calculatrice.entry.set(calculatrice.text)
+
+def Btn_point():
+    calculatrice.text += "."
+    calculatrice.entry.set(calculatrice.text)
+    
+def Btn_soustraction ():
+    calculatrice.text += "-"
+    calculatrice.entry.set(calculatrice.text)
+
+def Btn_division ():
+    calculatrice.text += "/"
+    calculatrice.entry.set(calculatrice.text)
+
+def Btn_multiplication ():
+    calculatrice.text += "x"
+    calculatrice.entry.set(calculatrice.text)
+
+def Btn_pourcentage ():
+    calculatrice.text += "%"
+    calculatrice.entry.set(calculatrice.text)
+
+def Btn_operation ():
+    calculatrice.operation()    
+
+def Btn_supprimer ():
+    calculatrice.entry.set("")
+    calculatrice.init()
+    
+# Fenêtre principale ---------------------
+
+root = Tk() 
+root.geometry("410x350")
+root.title("Calculatrice")
+
+# Programme -------------------------------
+calculatrice = calculator()
+
+# Fenêtre de calcul ---------------------
+
+fenetre=Entry(root, width=60, textvariable=calculatrice.entry, bd=6)
+fenetre.grid(columnspan=6, padx=20, pady=10)
+
+# Bouttons ----------------------------------------
+
+# Boutons des chiffres
+
+btn_1 = Button(root,text="1", command=Btn1, width=5,font=("Arial",18),)
+btn_1.grid(row=2, column=1) 
+
+btn_2 = Button(root,text="2", command=Btn2, width=5,font=("Arial",18))
 btn_2.grid(row=2, column=2)
 
-btn_3=Button(root,text="3", command=lambda: ajout_calcul(3), width=5,font=("Arial",18))
+btn_3 = Button(root,text="3", command=Btn3, width=5,font=("Arial",18))
 btn_3.grid(row=2, column=3)
 
-btn_4=Button(root,text="4", command=lambda: ajout_calcul(4), width=5,font=("Arial",18))
+btn_4 = Button(root,text="4", command=Btn4, width=5,font=("Arial",18))
 btn_4.grid(row=3, column=1)
 
-btn_5=Button(root,text="5", command=lambda: ajout_calcul(5), width=5,font=("Arial",18))
+btn_5 = Button(root,text="5", command=Btn5, width=5,font=("Arial",18))
 btn_5.grid(row=3, column=2)
 
-btn_6=Button(root,text="6", command=lambda: ajout_calcul(6), width=5,font=("Arial",18))
+btn_6 = Button(root,text="6", command=Btn6, width=5,font=("Arial",18))
 btn_6.grid(row=3, column=3)
 
-btn_7=Button(root,text="7", command=lambda: ajout_calcul(7), width=5,font=("Arial",18))
+btn_7 = Button(root,text="7", command=Btn7, width=5,font=("Arial",18))
 btn_7.grid(row=4, column=1)
 
-btn_8=Button(root,text="8", command=lambda: ajout_calcul(8), width=5,font=("Arial",18))
+btn_8 = Button(root,text="8", command=Btn8, width=5,font=("Arial",18))
 btn_8.grid(row=4, column=2)
 
-btn_9=Button(root,text="9", command=lambda: ajout_calcul(9), width=5,font=("Arial",18))
+btn_9 = Button(root,text="9", command=Btn9, width=5,font=("Arial",18))
 btn_9.grid(row=4, column=3)
 
-btn_0=Button(root,text="0", command=lambda: ajout_calcul(0), width=5,font=("Arial",18))
+btn_0 = Button(root,text="0", command=Btn0, width=5,font=("Arial",18))
 btn_0.grid(row=5, column=2)
 
+# Buttons pour les parenthèses
 
-#...Boutons pour les parenthèses
-
-btn_open=Button(root,text="(", command=lambda: ajout_calcul("("), width=5,font=("Arial",18))
+btn_open=Button(root,text="(", command=Btn0, width=5,font=("Arial",18))
 btn_open.grid(row=5, column=1)
 
-btn_close=Button(root,text=")", command=lambda: ajout_calcul(")"), width=5,font=("Arial",18))
+btn_close=Button(root,text=")", command=Btn0, width=5,font=("Arial",18))
 btn_close.grid(row=5, column=3)
 
 
-#...Boutons pour les opérations
+# Buttons pour les opérations
 
-btn_somme=Button(root,text="+", command=lambda: ajout_calcul("+"), width=5,font=("Arial",18))
-btn_somme.grid(row=2, column=5)
+btn_addition=Button(root,text="+", command=Btn_addition, width=5,font=("Arial",18))
+btn_addition.grid(row=2, column=5)
 
-btn_soustraction=Button(root,text="-", command=lambda: ajout_calcul("-"), width=5,font=("Arial",18))
+btn_soustraction=Button(root,text="-", command=Btn_soustraction, width=5,font=("Arial",18))
 btn_soustraction.grid(row=3, column=5)
 
-btn_multiplication=Button(root,text="x", command=lambda: ajout_calcul("*"), width=5,font=("Arial",18))
+btn_multiplication=Button(root,text="x", command=Btn_multiplication, width=5,font=("Arial",18))
 btn_multiplication.grid(row=4, column=5)
 
-btn_division=Button(root,text="/", command=lambda: ajout_calcul("/"), width=5,font=("Arial",18))
+btn_division=Button(root,text="/", command=Btn_division, width=5,font=("Arial",18))
 btn_division.grid(row=5, column=5)
 
-btn_pourcentage=Button(root,text="%", command=lambda: ajout_calcul("%"), width=5,font=("Arial",18))
+btn_pourcentage=Button(root,text="%", command=Btn_pourcentage, width=5,font=("Arial",18))
 btn_pourcentage.grid(row=6, column=3)
 
-#...Boutons effacer, égale et point 
+#...Buttons effacer, égale et point 
 
-btn_egal=Button(root,text="=", command=lambda: eval_calcul("="), width=5,font=("Arial",18))
+btn_egal=Button(root,text="=", command=Btn_operation, width=5,font=("Arial",18))
 btn_egal.grid(row=6, column=5)
 
-btn_effacer=Button(root,text="C", command=effacer_ecran, width=5,font=("Arial",18))
+btn_effacer=Button(root,text="C", command=Btn_supprimer, width=5,font=("Arial",18))
 btn_effacer.grid(row=6, column=1)
 
-btn_dot=Button(root,text=".", command=lambda: ajout_calcul("."), width=5,font=("Arial",18))
+btn_dot=Button(root,text=".", command=Btn_point, width=5,font=("Arial",18))
 btn_dot.grid(row=6, column=2)
 
-root.mainloop()
 
+root.mainloop()
 
 
 
