@@ -38,9 +38,7 @@ class calculator():
             elif "/" in saisie.text:
                 saisie.division()
             elif "x" in saisie.text:
-                saisie.multiplication()
-            elif "x" in saisie.text:
-                saisie.pourcentage()
+                saisie.multiplication()            
         except:
             saisie.entry.set("Erreur")
             saisie.init()
@@ -79,15 +77,7 @@ class calculator():
         saisie.etape2 = float(nombre[1])
         saisie.final = saisie.etape1 / saisie.etape2
         saisie.entry.set(str(saisie.final))
-        saisie.init()
-    
-# Pourcentage
-    def pourcentage(saisie):
-        nombre = saisie.text.split("%")
-        saisie.etape1 = float(nombre[0])
-        saisie.final = saisie.etape1 / 100
-        saisie.entry.set(str(saisie.final))
-        saisie.init()
+        saisie.init()  
 
 # Fonctions ----------------------------
 
@@ -155,10 +145,6 @@ def Btn_multiplication ():
     calculatrice.text += "x"
     calculatrice.entry.set(calculatrice.text)
 
-def Btn_pourcentage ():
-    calculatrice.text += "%"
-    calculatrice.entry.set(calculatrice.text)
-
 def Btn_operation ():
     calculatrice.operation()    
 
@@ -169,7 +155,7 @@ def Btn_supprimer ():
 # Fenêtre principale ---------------------
 
 root = Tk() 
-root.geometry("410x350")
+root.geometry("430x300")
 root.title("Calculatrice")
 
 # Programme -------------------------------
@@ -214,15 +200,6 @@ btn_9.grid(row=4, column=3)
 btn_0 = Button(root,text="0", command=Btn0, width=5,font=("Arial",18))
 btn_0.grid(row=5, column=2)
 
-# Buttons pour les parenthèses
-
-btn_open=Button(root,text="(", command=Btn0, width=5,font=("Arial",18))
-btn_open.grid(row=5, column=1)
-
-btn_close=Button(root,text=")", command=Btn0, width=5,font=("Arial",18))
-btn_close.grid(row=5, column=3)
-
-
 # Buttons pour les opérations
 
 btn_addition=Button(root,text="+", command=Btn_addition, width=5,font=("Arial",18))
@@ -237,19 +214,16 @@ btn_multiplication.grid(row=4, column=5)
 btn_division=Button(root,text="/", command=Btn_division, width=5,font=("Arial",18))
 btn_division.grid(row=5, column=5)
 
-btn_pourcentage=Button(root,text="%", command=Btn_pourcentage, width=5,font=("Arial",18))
-btn_pourcentage.grid(row=6, column=3)
-
 #...Buttons effacer, égale et point 
 
 btn_egal=Button(root,text="=", command=Btn_operation, width=5,font=("Arial",18))
 btn_egal.grid(row=6, column=5)
 
 btn_effacer=Button(root,text="C", command=Btn_supprimer, width=5,font=("Arial",18))
-btn_effacer.grid(row=6, column=1)
+btn_effacer.grid(row=5, column=1)
 
 btn_dot=Button(root,text=".", command=Btn_point, width=5,font=("Arial",18))
-btn_dot.grid(row=6, column=2)
+btn_dot.grid(row=5, column=3)
 
 
 root.mainloop()
